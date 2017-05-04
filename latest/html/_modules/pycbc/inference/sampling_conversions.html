@@ -1,0 +1,854 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycbc.inference.sampling_conversions &mdash; PyCBC 785ddb documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/terminal.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="PyCBC 785ddb documentation" href="../../../index.html"/>
+        <link rel="up" title="pycbc" href="../../pycbc.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> PyCBC
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.7.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../credit.html">Use of PyCBC in Scientific Publications</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Running PyCBC under Docker</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing PyCBC</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../workflow/pycbc_make_psd_estimation_workflow.html"><code class="docutils literal"><span class="pre">pycbc_make_psd_estimation_workflow</span></code>: A workflow generator for noise estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workflow/pycbc_make_coinc_search_workflow.html"><code class="docutils literal"><span class="pre">pycbc_make_coinc_search_workflow</span></code>: A workflow to search for gravitational waves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../workflow/pygrb.html"><code class="docutils literal"><span class="pre">pycbc_make_offline_grb_workflow</span></code>: A GRB triggered CBC analysis workflow generator</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../workflow/pycbc_make_inference_workflow.html"><code class="docutils literal"><span class="pre">pycbc_make_inference_workflow</span></code>: A parameter estimation workflow generator</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tmpltbank.html">PyCBC template bank generation documentation (<code class="docutils literal"><span class="pre">pycbc.tmpltbank</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../inference.html">PyCBC inference documentation (<code class="docutils literal"><span class="pre">pycbc.inference</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hwinj.html">Hardware injection waveform generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../banksim.html">Calculating the Effectualness (Fitting Factor) of Template Banks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faithsim.html">Dag Generator for Doing Faithfulness Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../upload_to_gracedb.html">Uploading triggers to gracedb</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../gw150914.html">Signal Processing with GW150914</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../frame.html">Reading Gravitational-wave Frames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../psd.html">Handling PSDs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../noise.html">Generating Noise</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../waveform.html">Waveforms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../filter.html">Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../distributions.html">Using PyCBC Distributions from PyCBC Inference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../building_bundled_executables.html">Building Bundled Executables</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html">Documenting PyCBC code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release.html">Creating Releases of PyCBC</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../formats/hdf_format.html">HDF files within the PyCBC workflow</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../workflow.html">Workflow: the inspiral analysis workflow generator (<code class="docutils literal"><span class="pre">pycbc.workflow</span></code>)</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">pycbc</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyCBC</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../pycbc.html">pycbc</a> &raquo;</li>
+        
+      <li>pycbc.inference.sampling_conversions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pycbc.inference.sampling_conversions</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2017  Christopher M. Biwer</span>
+<span class="c1"># This program is free software; you can redistribute it and/or modify it</span>
+<span class="c1"># under the terms of the GNU General Public License as published by the</span>
+<span class="c1"># Free Software Foundation; either version 3 of the License, or (at your</span>
+<span class="c1"># option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful, but</span>
+<span class="c1"># WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General</span>
+<span class="c1"># Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License along</span>
+<span class="c1"># with this program; if not, write to the Free Software Foundation, Inc.,</span>
+<span class="c1"># 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This modules provides classes and functions for converting sampling parameters</span>
+<span class="sd">to a set of base parameters.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">pycbc</span> <span class="k">import</span> <span class="n">conversions</span>
+<span class="kn">from</span> <span class="nn">pycbc</span> <span class="k">import</span> <span class="n">coordinates</span>
+<span class="kn">from</span> <span class="nn">pycbc</span> <span class="k">import</span> <span class="n">cosmology</span>
+<span class="kn">from</span> <span class="nn">pycbc.io</span> <span class="k">import</span> <span class="n">record</span>
+<span class="kn">from</span> <span class="nn">pycbc.waveform</span> <span class="k">import</span> <span class="n">parameters</span>
+
+<div class="viewcode-block" id="BaseConversion"><a class="viewcode-back" href="../../../pycbc.inference.html#pycbc.inference.sampling_conversions.BaseConversion">[docs]</a><span class="k">class</span> <span class="nc">BaseConversion</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A base class for converting between two sets of parameters.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_inputs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([])</span>
+    <span class="n">_outputs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([])</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns a set of input parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_inputs</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns a set of output parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">maps</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This function converts from inputs to outputs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Not added.&quot;</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_convert_inverse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">maps</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The inverse conversions of _convert. This function converts from</span>
+<span class="sd">        outputs to inputs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Not added.&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BaseConversion.convert"><a class="viewcode-back" href="../../../pycbc.inference.html#pycbc.inference.sampling_conversions.BaseConversion.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old_maps</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Convert inputs to outputs. This function accepts either</span>
+<span class="sd">        a FieldArray or dict. It will return the same output type as the</span>
+<span class="sd">        input mapping object. Internally it calls _convert.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        old_maps : {FieldArray, dict}</span>
+<span class="sd">            Mapping object to add new keys.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        {FieldArray, dict}</span>
+<span class="sd">            Mapping object with new keys.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">new_maps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">(</span><span class="n">old_maps</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_output</span><span class="p">(</span><span class="n">old_maps</span><span class="p">,</span> <span class="n">new_maps</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="BaseConversion.format_output"><a class="viewcode-back" href="../../../pycbc.inference.html#pycbc.inference.sampling_conversions.BaseConversion.format_output">[docs]</a>    <span class="k">def</span> <span class="nf">format_output</span><span class="p">(</span><span class="n">old_maps</span><span class="p">,</span> <span class="n">new_maps</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This function takes the returned dict from _convert and converts</span>
+<span class="sd">        it to the same datatype as the input to _convert.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        old_maps : {FieldArray, dict}</span>
+<span class="sd">            The mapping object to add new maps to.</span>
+<span class="sd">        new_maps : dict</span>
+<span class="sd">            A dict with key as parameter name and value is numpy.array.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        {FieldArray, dict}</span>
+<span class="sd">            The old_maps object with new keys from new_maps.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># if input is FieldArray then return FieldArray</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old_maps</span><span class="p">,</span> <span class="n">record</span><span class="o">.</span><span class="n">FieldArray</span><span class="p">):</span>
+            <span class="n">keys</span> <span class="o">=</span> <span class="n">new_maps</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">new_maps</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">vals</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">old_maps</span> <span class="o">=</span> <span class="n">old_maps</span><span class="o">.</span><span class="n">add_fields</span><span class="p">([</span><span class="n">vals</span><span class="p">],</span> <span class="p">[</span><span class="n">key</span><span class="p">])</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="n">old_maps</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">vals</span>
+            <span class="k">return</span> <span class="n">old_maps</span>
+
+        <span class="c1"># if input is dict then return dict</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old_maps</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">old_maps</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_maps</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">out</span>
+
+        <span class="c1"># else error</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Input type must be FieldArray or dict.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseConversion.inverse"><a class="viewcode-back" href="../../../pycbc.inference.html#pycbc.inference.sampling_conversions.BaseConversion.inverse">[docs]</a>    <span class="k">def</span> <span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Inverts the conversions being done. Inputs become outputs and</span>
+<span class="sd">        vice versa. The function convert will now call the inverse</span>
+<span class="sd">        transformation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inputs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_inverse</span> <span class="o">=</span> \
+                                      <span class="bp">self</span><span class="o">.</span><span class="n">_convert_inverse</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert</span></div></div>
+
+<div class="viewcode-block" id="MchirpQToMass1Mass2"><a class="viewcode-back" href="../../../pycbc.inference.html#pycbc.inference.sampling_conversions.MchirpQToMass1Mass2">[docs]</a><span class="k">class</span> <span class="nc">MchirpQToMass1Mass2</span><span class="p">(</span><span class="n">BaseConversion</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Converts chirp mass and mass ratio to component masses.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mchirp</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">q</span><span class="p">]</span>
+    <span class="n">_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">]</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">maps</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This function converts from chirp mass and mass ratio to component</span>
+<span class="sd">        masses.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        maps : a mapping object</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Convert a dict of numpy.array:</span>
+
+<span class="sd">        &gt;&gt;&gt; import numpy</span>
+<span class="sd">        &gt;&gt;&gt; from pycbc.inference import sampling_conversions</span>
+<span class="sd">        &gt;&gt;&gt; from pycbc.waveform import parameters</span>
+<span class="sd">        &gt;&gt;&gt; cl = sampling_conversions.MchirpQToMass1Mass2()</span>
+<span class="sd">        &gt;&gt;&gt; cl.convert({parameters.mchirp : numpy.array([10.]), parameters.q : numpy.array([2.])})</span>
+<span class="sd">            {&#39;mass1&#39;: array([ 16.4375183]), &#39;mass2&#39;: array([ 8.21875915]), &#39;mchirp&#39;: array([ 10.]), &#39;q&#39;: array([ 2.])}</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : dict</span>
+<span class="sd">            A dict with key as parameter name and value as numpy.array or float</span>
+<span class="sd">            of converted values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">]</span> <span class="o">=</span> <span class="n">conversions</span><span class="o">.</span><span class="n">mass1_from_mchirp_q</span><span class="p">(</span>
+                                                <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mchirp</span><span class="p">],</span>
+                                                <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">q</span><span class="p">])</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">]</span> <span class="o">=</span> <span class="n">conversions</span><span class="o">.</span><span class="n">mass2_from_mchirp_q</span><span class="p">(</span>
+                                                <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mchirp</span><span class="p">],</span>
+                                                <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">q</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_convert_inverse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">maps</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This function converts from component masses to chirp mass and mass</span>
+<span class="sd">        ratio.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        maps : a mapping object</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Convert a dict of numpy.array:</span>
+
+<span class="sd">        &gt;&gt;&gt; import numpy</span>
+<span class="sd">        &gt;&gt;&gt; from pycbc.inference import sampling_conversions</span>
+<span class="sd">        &gt;&gt;&gt; from pycbc.waveform import parameters</span>
+<span class="sd">        &gt;&gt;&gt; cl = sampling_conversions.MchirpQToMass1Mass2()</span>
+<span class="sd">        &gt;&gt;&gt; cl.inverse()</span>
+<span class="sd">        &gt;&gt;&gt; cl.convert({parameters.mass1 : numpy.array([16.4]), parameters.mass2 : numpy.array([8.2])})</span>
+<span class="sd">            {&#39;mass1&#39;: array([ 16.4]), &#39;mass2&#39;: array([ 8.2]), &#39;mchirp&#39;: array([ 9.97717521]), &#39;q&#39;: 2.0}</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : dict</span>
+<span class="sd">            A dict with key as parameter name and value as numpy.array or float</span>
+<span class="sd">            of converted values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mchirp</span><span class="p">]</span> <span class="o">=</span> \
+                 <span class="n">conversions</span><span class="o">.</span><span class="n">mchirp_from_mass1_mass2</span><span class="p">(</span><span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">],</span>
+                                                     <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">])</span>
+        <span class="n">m_p</span> <span class="o">=</span> <span class="n">conversions</span><span class="o">.</span><span class="n">primary_mass</span><span class="p">(</span><span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">],</span>
+                                       <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">])</span>
+        <span class="n">m_s</span> <span class="o">=</span> <span class="n">conversions</span><span class="o">.</span><span class="n">secondary_mass</span><span class="p">(</span><span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">],</span>
+                                         <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">])</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">q</span><span class="p">]</span> <span class="o">=</span> <span class="n">m_p</span> <span class="o">/</span> <span class="n">m_s</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+<div class="viewcode-block" id="SphericalSpin1ToCartesianSpin1"><a class="viewcode-back" href="../../../pycbc.inference.html#pycbc.inference.sampling_conversions.SphericalSpin1ToCartesianSpin1">[docs]</a><span class="k">class</span> <span class="nc">SphericalSpin1ToCartesianSpin1</span><span class="p">(</span><span class="n">BaseConversion</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Converts spherical spin parameters (magnitude and two angles) to</span>
+<span class="sd">    catesian spin parameters. This class only converts spsins for the first</span>
+<span class="sd">    component mass.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1_a</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">spin1_azimuthal</span><span class="p">,</span>
+               <span class="n">parameters</span><span class="o">.</span><span class="n">spin1_polar</span><span class="p">]</span>
+    <span class="n">_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1x</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">spin1y</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">spin1z</span><span class="p">]</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">maps</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This function converts from spherical to cartesian spins.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        maps : a mapping object</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Convert a dict of numpy.array:</span>
+
+<span class="sd">        &gt;&gt;&gt; import numpy</span>
+<span class="sd">        &gt;&gt;&gt; from pycbc.inference import sampling_conversions</span>
+<span class="sd">        &gt;&gt;&gt; from pycbc.waveform import parameters</span>
+<span class="sd">        &gt;&gt;&gt; cl = sampling_conversions.SphericalSpin1ToCartesianSpin1()</span>
+<span class="sd">        &gt;&gt;&gt; cl.convert({parameters.spin1_a : numpy.array([0.1]), parameters.spin1_azimuthal : numpy.array([0.1]), parameters.spin1_polar : numpy.array([0.1])})</span>
+<span class="sd">            {&#39;spin1_a&#39;: array([ 0.1]), &#39;spin1_azimuthal&#39;: array([ 0.1]), &#39;spin1_polar&#39;: array([ 0.1]),</span>
+<span class="sd">             &#39;spin2x&#39;: array([ 0.00993347]), &#39;spin2y&#39;: array([ 0.00099667]), &#39;spin2z&#39;: array([ 0.09950042])}</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : dict</span>
+<span class="sd">            A dict with key as parameter name and value as numpy.array or float</span>
+<span class="sd">            of converted values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">az</span><span class="p">,</span> <span class="n">po</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_inputs</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">coordinates</span><span class="o">.</span><span class="n">spherical_to_cartesian</span><span class="p">(</span><span class="n">maps</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">az</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">po</span><span class="p">])</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{</span><span class="n">param</span> <span class="p">:</span> <span class="n">val</span> <span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_outputs</span><span class="p">,</span> <span class="n">data</span><span class="p">)}</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_convert_inverse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">maps</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This function converts from cartesian to spherical spins.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        maps : a mapping object</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : dict</span>
+<span class="sd">            A dict with key as parameter name and value as numpy.array or float</span>
+<span class="sd">            of converted values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">sz</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_inputs</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">coordinates</span><span class="o">.</span><span class="n">cartesian_to_spherical</span><span class="p">(</span><span class="n">maps</span><span class="p">[</span><span class="n">sx</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">sy</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">sz</span><span class="p">])</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{</span><span class="n">param</span> <span class="p">:</span> <span class="n">val</span> <span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_outputs</span><span class="p">,</span> <span class="n">data</span><span class="p">)}</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+<div class="viewcode-block" id="SphericalSpin2ToCartesianSpin2"><a class="viewcode-back" href="../../../pycbc.inference.html#pycbc.inference.sampling_conversions.SphericalSpin2ToCartesianSpin2">[docs]</a><span class="k">class</span> <span class="nc">SphericalSpin2ToCartesianSpin2</span><span class="p">(</span><span class="n">SphericalSpin1ToCartesianSpin1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Converts spherical spin parameters (magnitude and two angles) to</span>
+<span class="sd">    catesian spin parameters. This class only converts spsins for the second</span>
+<span class="sd">    component mass.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2_a</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">spin2_azimuthal</span><span class="p">,</span>
+               <span class="n">parameters</span><span class="o">.</span><span class="n">spin2_polar</span><span class="p">]</span>
+    <span class="n">_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2x</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">spin2y</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">spin2z</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="DistanceToRedshift"><a class="viewcode-back" href="../../../pycbc.inference.html#pycbc.inference.sampling_conversions.DistanceToRedshift">[docs]</a><span class="k">class</span> <span class="nc">DistanceToRedshift</span><span class="p">(</span><span class="n">BaseConversion</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Converts distance to redshift.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">distance</span><span class="p">]</span>
+    <span class="n">_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">redshift</span><span class="p">]</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">maps</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This function converts from distance to redshift.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        maps : a mapping object</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Convert a dict of numpy.array:</span>
+
+<span class="sd">        &gt;&gt;&gt; import numpy</span>
+<span class="sd">        &gt;&gt;&gt; from pycbc.inference import sampling_conversions</span>
+<span class="sd">        &gt;&gt;&gt; from pycbc.waveform import parameters</span>
+<span class="sd">        &gt;&gt;&gt; cl = sampling_conversions.DistanceToRedshift()</span>
+<span class="sd">        &gt;&gt;&gt; cl.convert({parameters.distance : numpy.array([1000])})</span>
+<span class="sd">            {&#39;distance&#39;: array([1000]), &#39;redshift&#39;: 0.19650987609144363}</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : dict</span>
+<span class="sd">            A dict with key as parameter name and value as numpy.array or float</span>
+<span class="sd">            of converted values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{</span><span class="n">parameters</span><span class="o">.</span><span class="n">redshift</span> <span class="p">:</span> <span class="n">cosmology</span><span class="o">.</span><span class="n">redshift</span><span class="p">(</span>
+                                                    <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">distance</span><span class="p">])}</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+<div class="viewcode-block" id="AlignedMassSpinToCartesianSpin"><a class="viewcode-back" href="../../../pycbc.inference.html#pycbc.inference.sampling_conversions.AlignedMassSpinToCartesianSpin">[docs]</a><span class="k">class</span> <span class="nc">AlignedMassSpinToCartesianSpin</span><span class="p">(</span><span class="n">BaseConversion</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Converts mass-weighted spins to cartesian z-axis spins.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">chi_eff</span><span class="p">,</span> <span class="s2">&quot;chi_a&quot;</span><span class="p">]</span>
+    <span class="n">_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">,</span>
+               <span class="n">parameters</span><span class="o">.</span><span class="n">spin1z</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">spin2z</span><span class="p">]</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">maps</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This function converts from aligned mass-weighted spins to</span>
+<span class="sd">        cartesian spins aligned along the z-axis.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        maps : a mapping object</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : dict</span>
+<span class="sd">            A dict with key as parameter name and value as numpy.array or float</span>
+<span class="sd">            of converted values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1z</span><span class="p">]</span> <span class="o">=</span> \
+                         <span class="n">conversions</span><span class="o">.</span><span class="n">spin1z_from_mass1_mass2_chi_eff_chi_a</span><span class="p">(</span>
+                               <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">],</span>
+                               <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">chi_eff</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="s2">&quot;chi_a&quot;</span><span class="p">])</span>
+
+        <span class="n">out</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2z</span><span class="p">]</span> <span class="o">=</span> \
+                         <span class="n">conversions</span><span class="o">.</span><span class="n">spin2z_from_mass1_mass2_chi_eff_chi_a</span><span class="p">(</span>
+                               <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">],</span>
+                               <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">chi_eff</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="s2">&quot;chi_a&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_convert_inverse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">maps</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This function converts from component masses and cartesian spins to</span>
+<span class="sd">        mass-weighted spin parameters aligned with the angular momentum.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        maps : a mapping object</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : dict</span>
+<span class="sd">            A dict with key as parameter name and value as numpy.array or float</span>
+<span class="sd">            of converted values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">parameters</span><span class="o">.</span><span class="n">chi_eff</span> <span class="p">:</span> <span class="n">conversions</span><span class="o">.</span><span class="n">chi_eff</span><span class="p">(</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">],</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1z</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2z</span><span class="p">]),</span>
+            <span class="s2">&quot;chi_a&quot;</span> <span class="p">:</span> <span class="n">conversions</span><span class="o">.</span><span class="n">chi_a</span><span class="p">(</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">],</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1z</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2z</span><span class="p">]),</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+<div class="viewcode-block" id="PrecessionMassSpinToCartesianSpin"><a class="viewcode-back" href="../../../pycbc.inference.html#pycbc.inference.sampling_conversions.PrecessionMassSpinToCartesianSpin">[docs]</a><span class="k">class</span> <span class="nc">PrecessionMassSpinToCartesianSpin</span><span class="p">(</span><span class="n">BaseConversion</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Converts mass-weighted spins to cartesian x-y plane spins.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">,</span>
+               <span class="s2">&quot;xi1&quot;</span><span class="p">,</span> <span class="s2">&quot;xi2&quot;</span><span class="p">,</span> <span class="s2">&quot;phi_a&quot;</span><span class="p">,</span> <span class="s2">&quot;phi_s&quot;</span><span class="p">]</span>
+    <span class="n">_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">,</span>
+                <span class="n">parameters</span><span class="o">.</span><span class="n">spin1x</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">spin1y</span><span class="p">,</span>
+                <span class="n">parameters</span><span class="o">.</span><span class="n">spin2x</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">spin2y</span><span class="p">]</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">maps</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This function converts from mass-weighted spins to caretsian spins</span>
+<span class="sd">        in the x-y plane.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        maps : a mapping object</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : dict</span>
+<span class="sd">            A dict with key as parameter name and value as numpy.array or float</span>
+<span class="sd">            of converted values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1x</span><span class="p">]</span> <span class="o">=</span> <span class="n">conversions</span><span class="o">.</span><span class="n">spin1x_from_xi1_phi_a_phi_s</span><span class="p">(</span>
+                               <span class="n">maps</span><span class="p">[</span><span class="s2">&quot;xi1&quot;</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="s2">&quot;phi_a&quot;</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="s2">&quot;phi_s&quot;</span><span class="p">])</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1y</span><span class="p">]</span> <span class="o">=</span> <span class="n">conversions</span><span class="o">.</span><span class="n">spin1y_from_xi1_phi_a_phi_s</span><span class="p">(</span>
+                               <span class="n">maps</span><span class="p">[</span><span class="s2">&quot;xi1&quot;</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="s2">&quot;phi_a&quot;</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="s2">&quot;phi_s&quot;</span><span class="p">])</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2x</span><span class="p">]</span> <span class="o">=</span> \
+                         <span class="n">conversions</span><span class="o">.</span><span class="n">spin2x_from_mass1_mass2_xi2_phi_a_phi_s</span><span class="p">(</span>
+                               <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">],</span>
+                               <span class="n">maps</span><span class="p">[</span><span class="s2">&quot;xi2&quot;</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="s2">&quot;phi_a&quot;</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="s2">&quot;phi_s&quot;</span><span class="p">])</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2y</span><span class="p">]</span> <span class="o">=</span> \
+                         <span class="n">conversions</span><span class="o">.</span><span class="n">spin2y_from_mass1_mass2_xi2_phi_a_phi_s</span><span class="p">(</span>
+                               <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">],</span>
+                               <span class="n">maps</span><span class="p">[</span><span class="s2">&quot;xi2&quot;</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="s2">&quot;phi_a&quot;</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="s2">&quot;phi_s&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_convert_inverse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">maps</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This function converts from component masses and cartesian spins to</span>
+<span class="sd">        mass-weighted spin parameters perpendicular with the angular momentum.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        maps : a mapping object</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : dict</span>
+<span class="sd">            A dict with key as parameter name and value as numpy.array or float</span>
+<span class="sd">            of converted values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">&quot;xi1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">conversions</span><span class="o">.</span><span class="n">primary_xi</span><span class="p">(</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">],</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1x</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1y</span><span class="p">],</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2x</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2y</span><span class="p">])</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">&quot;xi2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">conversions</span><span class="o">.</span><span class="n">secondary_xi</span><span class="p">(</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">],</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1x</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1y</span><span class="p">],</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2x</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2y</span><span class="p">])</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">&quot;phi_a&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">conversions</span><span class="o">.</span><span class="n">phi_a</span><span class="p">(</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1x</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1y</span><span class="p">],</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2x</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2y</span><span class="p">])</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">&quot;phi_s&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">conversions</span><span class="o">.</span><span class="n">phi_s</span><span class="p">(</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1x</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1y</span><span class="p">],</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2x</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2y</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+<div class="viewcode-block" id="ChiPToCartesianSpin"><a class="viewcode-back" href="../../../pycbc.inference.html#pycbc.inference.sampling_conversions.ChiPToCartesianSpin">[docs]</a><span class="k">class</span> <span class="nc">ChiPToCartesianSpin</span><span class="p">(</span><span class="n">BaseConversion</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Converts chi_p to cartesian spins.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;chi_p&quot;</span><span class="p">]</span>
+    <span class="n">_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">,</span>
+                <span class="n">parameters</span><span class="o">.</span><span class="n">spin1x</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">spin1y</span><span class="p">,</span>
+                <span class="n">parameters</span><span class="o">.</span><span class="n">spin2x</span><span class="p">,</span> <span class="n">parameters</span><span class="o">.</span><span class="n">spin2y</span><span class="p">]</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_convert_inverse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">maps</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; This function converts from component masses and caretsian spins</span>
+<span class="sd">        to chi_p.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        maps : a mapping object</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Convert a dict of numpy.array:</span>
+
+<span class="sd">        &gt;&gt;&gt; import numpy</span>
+<span class="sd">        &gt;&gt;&gt; from pycbc.inference import sampling_conversions</span>
+<span class="sd">        &gt;&gt;&gt; from pycbc.waveform import parameters</span>
+<span class="sd">        &gt;&gt;&gt; cl = sampling_conversions.DistanceToRedshift()</span>
+<span class="sd">        &gt;&gt;&gt; cl.convert({parameters.distance : numpy.array([1000])})</span>
+<span class="sd">            {&#39;distance&#39;: array([1000]), &#39;redshift&#39;: 0.19650987609144363}</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        out : dict</span>
+<span class="sd">            A dict with key as parameter name and value as numpy.array or float</span>
+<span class="sd">            of converted values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">&quot;chi_p&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">conversions</span><span class="o">.</span><span class="n">chi_p</span><span class="p">(</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass1</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">mass2</span><span class="p">],</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1x</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin1y</span><span class="p">],</span>
+                             <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2x</span><span class="p">],</span> <span class="n">maps</span><span class="p">[</span><span class="n">parameters</span><span class="o">.</span><span class="n">spin2y</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+<span class="c1"># list of all Conversions to/from base parameters</span>
+<span class="n">to_base_converters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">MchirpQToMass1Mass2</span><span class="p">(),</span> <span class="n">DistanceToRedshift</span><span class="p">(),</span>
+    <span class="n">SphericalSpin1ToCartesianSpin1</span><span class="p">(),</span> <span class="n">SphericalSpin2ToCartesianSpin2</span><span class="p">(),</span>
+    <span class="n">AlignedMassSpinToCartesianSpin</span><span class="p">(),</span> <span class="n">PrecessionMassSpinToCartesianSpin</span><span class="p">(),</span>
+    <span class="n">ChiPToCartesianSpin</span><span class="p">(),</span>
+<span class="p">]</span>
+<span class="n">from_base_converters</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">to_base_converters</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">from_base_converters</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span>
+<span class="n">all_converters</span> <span class="o">=</span> <span class="n">from_base_converters</span> <span class="o">+</span> <span class="n">to_base_converters</span>
+
+<div class="viewcode-block" id="get_conversions"><a class="viewcode-back" href="../../../pycbc.inference.html#pycbc.inference.sampling_conversions.get_conversions">[docs]</a><span class="k">def</span> <span class="nf">get_conversions</span><span class="p">(</span><span class="n">requested_params</span><span class="p">,</span> <span class="n">variable_args</span><span class="p">,</span> <span class="n">valid_params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Determines if any additional parameters from the InferenceFile are</span>
+<span class="sd">    needed to get derived parameters that user has asked for.</span>
+
+<span class="sd">    First it will try to add any base parameters that are required to calculate</span>
+<span class="sd">    the derived parameters. Then it will add any sampling parameters that are</span>
+<span class="sd">    required to calculate the base parameters needed.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    requested_params : list</span>
+<span class="sd">        List of parameters that user wants.</span>
+<span class="sd">    variable_args : list</span>
+<span class="sd">        List of parameters that InferenceFile has.</span>
+<span class="sd">    valid_params : list</span>
+<span class="sd">        List of parameters that can be accepted.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    requested_params : list</span>
+<span class="sd">        Updated list of parameters that user wants.</span>
+<span class="sd">    all_c : list</span>
+<span class="sd">        List of BaseConversions to apply.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># try to parse any equations by putting all strings together</span>
+    <span class="c1"># this will get some garbage but ensures all alphanumeric/underscored</span>
+    <span class="c1"># parameter names are added</span>
+    <span class="n">new_params</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">opt</span> <span class="ow">in</span> <span class="n">requested_params</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">opt</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="n">ch</span> <span class="k">if</span> <span class="n">ch</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span> <span class="ow">or</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">&quot;_&quot;</span> <span class="k">else</span> <span class="s2">&quot; &quot;</span>
+        <span class="n">eqn</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">new_params</span> <span class="o">+=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="n">requested_params</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">requested_params</span> <span class="o">+</span> <span class="n">new_params</span><span class="p">)</span>
+
+    <span class="c1"># can pass a list of valid parameters to remove garbage from parsing above</span>
+    <span class="k">if</span> <span class="n">valid_params</span><span class="p">:</span>
+        <span class="n">valid_params</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">valid_params</span><span class="p">)</span>
+        <span class="n">requested_params</span> <span class="o">=</span> <span class="n">requested_params</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">valid_params</span><span class="p">)</span>
+
+    <span class="c1"># find all the conversions for the requested derived parameters</span>
+    <span class="c1"># calculated from base parameters</span>
+    <span class="n">from_base_c</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">converter</span> <span class="ow">in</span> <span class="n">from_base_converters</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">converter</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">variable_args</span><span class="p">)</span> <span class="ow">or</span>
+                <span class="n">converter</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">isdisjoint</span><span class="p">(</span><span class="n">requested_params</span><span class="p">)):</span>
+            <span class="k">continue</span>
+        <span class="n">intersect</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">requested_params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">intersect</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">intersect</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">converter</span><span class="o">.</span><span class="n">inputs</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">requested_params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">converter</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">from_base_c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">converter</span><span class="p">)</span>
+
+    <span class="c1"># find all the conversions for the required base parameters</span>
+    <span class="c1"># calculated from sampling parameters</span>
+    <span class="n">to_base_c</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">converter</span> <span class="ow">in</span> <span class="n">to_base_converters</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">converter</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">variable_args</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">converter</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">requested_params</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">requested_params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">converter</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span>
+            <span class="n">to_base_c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">converter</span><span class="p">)</span>
+
+    <span class="c1"># get list of conversions that converts sampling parameters to the base</span>
+    <span class="c1"># parameters and then converts base parameters to the derived parameters</span>
+    <span class="n">all_c</span> <span class="o">=</span> <span class="n">to_base_c</span> <span class="o">+</span> <span class="n">from_base_c</span>
+
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">requested_params</span><span class="p">),</span> <span class="n">all_c</span></div>
+
+<div class="viewcode-block" id="apply_conversions"><a class="viewcode-back" href="../../../pycbc.inference.html#pycbc.inference.sampling_conversions.apply_conversions">[docs]</a><span class="k">def</span> <span class="nf">apply_conversions</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">cs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Applies a list of BaseConversion instances on a mapping object.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    samples : {FieldArray, dict}</span>
+<span class="sd">        Mapping object to apply conversions to.</span>
+<span class="sd">    cs : list</span>
+<span class="sd">        List of BaseConversion instances to apply.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    samples : {FieldArray, dict}</span>
+<span class="sd">        Mapping object with conversions applied. Same type as input.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cs</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">samples</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+            <span class="k">continue</span>
+    <span class="k">return</span> <span class="n">samples</span></div>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, 2016, 2017, Alexander Nitz, Ian Harry, Christopher M. Biwer, Duncan A.  Brown, Josh Willis, and Tito Dal Canton.
+      Last updated on May 04, 2017.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'785ddb',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="../../../_static/typed.min.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
